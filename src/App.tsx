@@ -35,9 +35,9 @@ class App extends React.Component<IMainProps, IMainState> {
                 <div className="App">
                     <header className="App-header">
                     </header>
-                    <p className="App-intro">
-                        {this.state.games.map(g => <Link to={'/game/' + g.gamePk}><GameComponent game={g}/></Link>)}
-                    </p>
+                    <div className="App-intro">
+                        {this.state.games.map((g, i) => <div key={i}><Link to={'/game/' + g.gamePk}><GameComponent game={g}/></Link></div>)}
+                    </div>
                 </div>
                 <Route path="/game/:id" component={GameStatComponent}/>
             </Router>
