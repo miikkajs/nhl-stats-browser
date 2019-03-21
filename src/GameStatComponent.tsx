@@ -4,6 +4,7 @@ import score from './score.json'
 import GameStat, {GameStatTeam} from "./GameStat";
 import ReactTable from 'react-table';
 import "react-table/react-table.css";
+import moment from 'moment';
 
 const columns = [
     {
@@ -19,6 +20,9 @@ const columns = [
         Header: "Time On Ice",
         id: 'timeOnIce',
         accessor: (d: any) => d.playerStats.timeOnIce,
+        sortMethod: (a: string, b :string) => {
+            return moment(a, 'mm:ss').valueOf() - moment(b, 'mm:ss').valueOf()
+        }
     },
     {
         Header: "Goals",
@@ -40,20 +44,25 @@ const columns = [
 const defaultFilterMethod = (filter : any, row : any) =>
 String(row[filter.id].toLowerCase()).indexOf(filter.value.toLowerCase()) !== -1;
 
-interface IRouterProps {
+const defaultSorted = [{
+    id   : 'goals',
+    desc : true,
+}];
+
+interface IGameStatsRouterProps {
     id: string
 }
 
-interface IProps extends RouteComponentProps<IRouterProps> {
+interface IGameStatsProps extends RouteComponentProps<IGameStatsRouterProps> {
 }
 
-interface IState {
+interface IGameStatsState {
     stats: GameStat
 }
 
-class GameStatComponent extends React.Component<IProps, IState> {
+class GameStatComponent extends React.Component<IGameStatsProps, IGameStatsState> {
 
-    constructor(props: IProps) {
+    constructor(props: IGameStatsProps) {
         super(props);
         const away = GameStatTeam.Parse(JSON.stringify(score.teams.away));
         const home = GameStatTeam.Parse(JSON.stringify(score.teams.home));
@@ -71,14 +80,12 @@ class GameStatComponent extends React.Component<IProps, IState> {
             <ReactTable data={this.state.stats.away.teamStats.players}
                         columns={[{Header: this.state.stats.away.name, columns}]}
                         defaultFilterMethod={defaultFilterMethod}
-                        defaultSorted={[{
-                            id   : 'goals',
-                            desc : true,
-                        }]}
+                        defaultSorted={defaultSorted}
             />
             <ReactTable data={this.state.stats.home.teamStats.players}
                         columns={[{Header: this.state.stats.home.name, columns}]}
-                        defaultFilterMethod={defaultFilterMethod}/>
+                        defaultFilterMethod={defaultFilterMethod}
+                        defaultSorted={defaultSorted}/>
         </div>
     }
 }
