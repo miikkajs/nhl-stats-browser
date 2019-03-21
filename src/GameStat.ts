@@ -3,9 +3,7 @@ class PlayerStats {
 
     }
 
-    static Parse(jsonString: string) {
-        const json = JSON.parse(jsonString);
-        console.log('json', json);
+    static Parse(json: any) {
         if (json.stats.hasOwnProperty('skaterStats')) {
             return new PlayerStats(json.stats.skaterStats.timeOnIce,
                 json.stats.skaterStats.assists,
@@ -25,9 +23,8 @@ class Player {
     }
 
 
-    static Parse(jsonString: string) {
-        const json = JSON.parse(jsonString);
-        const playerStats = PlayerStats.Parse(jsonString);
+    static Parse(json: any) {
+        const playerStats = PlayerStats.Parse(json);
         return new Player(json.person.fullName, json.person.nationality, playerStats);
     }
 
@@ -45,11 +42,12 @@ export class GameStatTeam {
     constructor(readonly name: string, readonly teamStats: TeamStats) {
     }
 
-    static Parse(jsonString: string) {
-        const json = JSON.parse(jsonString);
-        const players: Player[] = Object.keys(json.players).map((key: string) => {
-            return Player.Parse(JSON.stringify(json.players[key]))
-        });
+    static Parse(json: any) {
+        const players: Player[] = Object.keys(json.players)
+            .filter((key: string) => json.players[key].position.type !== 'Goalie')
+            .map((key: string) => {
+                return Player.Parse(json.players[key])
+            });
         const teamStats = new TeamStats(json.teamStats.teamSkaterStats.goals, json.teamStats.teamSkaterStats.shots, players);
         return new GameStatTeam(json.team.name, teamStats);
     }

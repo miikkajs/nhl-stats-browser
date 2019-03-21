@@ -64,8 +64,8 @@ class GameStatComponent extends React.Component<IGameStatsProps, IGameStatsState
 
     constructor(props: IGameStatsProps) {
         super(props);
-        const away = GameStatTeam.Parse(JSON.stringify(score.teams.away));
-        const home = GameStatTeam.Parse(JSON.stringify(score.teams.home));
+        const away = GameStatTeam.Parse(score.teams.away);
+        const home = GameStatTeam.Parse(score.teams.home);
         this.state = {stats: new GameStat(home, away)}
 
     }
