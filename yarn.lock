@@ -5798,6 +5798,11 @@ react-error-overlay@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.1.tgz#417addb0814a90f3a7082eacba7cee588d00da89"
 
+react-github-fork-ribbon@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-github-fork-ribbon/-/react-github-fork-ribbon-0.6.0.tgz#8b7454fec5bd5481af7fdf6d0fc8aa7653373301"
+  integrity sha512-lmobEGwg1k/JGMJMbiWNh3dd+5HUtePVqUu1LPr5L65MiK6mnn7ZgkGpFYXLijPxO9hD7x+f9qUrEzeazQdx2g==
+
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.4.tgz#90f336a68c3a29a096a3d648ab80e87ec61482a2"

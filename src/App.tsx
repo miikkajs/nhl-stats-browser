@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css';
-// import gamesData from './games.json'
+import GitHubForkRibbon from 'react-github-fork-ribbon';
 import Game from './Game'
 import Team from './Team'
 import GameComponent from "./GameComponent";
@@ -51,6 +51,9 @@ class App extends React.Component<IMainProps, IMainState> {
                 <div className="App">
                     <header className="App-header">
                         <img src={NHLLogo} className="App-logo" alt="logo"/>
+                        <GitHubForkRibbon href="https://github.com/miikkajs/nhl-stats-browser"  target="_blank" position="right">
+                            Fork me on GitHub
+                        </GitHubForkRibbon>
                     </header>
                     <div className="App-intro">
                         {this.state.games.map((g, i) => <div key={i}><Link to={'/game/' + g.gamePk}><GameComponent
