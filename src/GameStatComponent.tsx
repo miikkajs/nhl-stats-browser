@@ -5,8 +5,7 @@ import GameStat, {GameStatTeam} from "./GameStat";
 import ReactTable from 'react-table';
 import "react-table/react-table.css";
 import moment from 'moment';
-
-const API_BASE_URL = 'http://localhost:8000';
+import {API_BASE_URL} from "./Utils";
 
 const columns = [
     {

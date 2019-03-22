@@ -8,10 +8,9 @@ import {BrowserRouter as Router, Link} from "react-router-dom";
 import {Route} from "react-router";
 import GameStatComponent from "./GameStatComponent";
 import moment from 'moment';
+import {API_BASE_URL} from "./Utils";
 
 const NHLLogo = require('./NHL-Shield.png');
-
-const API_BASE_URL = 'http://localhost:8000';
 
 interface IMainProps {
 }
