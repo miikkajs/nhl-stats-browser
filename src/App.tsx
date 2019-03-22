@@ -29,9 +29,7 @@ class App extends React.Component<IMainProps, IMainState> {
     }
 
     public componentDidMount() {
-        console.log('component did mount');
         const yesterday = moment().subtract(1, 'days').format('YYYY-M-D');
-        console.log('yesterday', yesterday);
         fetch(`${API_BASE_URL}/schedule?expand=schedule.teams&date=${yesterday}`)
             .then(response => response.json())
             .then((gamesData: any) => {

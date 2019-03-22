@@ -68,24 +68,20 @@ class GameStatComponent extends React.Component<IGameStatsProps, IGameStatsState
         const away = GameStatTeam.Parse(score.teams.away);
         const home = GameStatTeam.Parse(score.teams.home);
         this.state = {stats: new GameStat(home, away)};
-        console.log('props', props);
 
     }
 
     componentDidMount() {
-        console.log('this.componentDidMount');
         this.fetchData()
     }
 
     componentDidUpdate(prevProps : IGameStatsProps) {
-        console.log('this.componentDidUpdate');
         if(this.props.match.params.id !== prevProps.match.params.id){
             this.fetchData();
         }
     }
 
     render() {
-        console.log('this.state.stats.away.teamStats', this.state.stats.away.teamStats);
         return <div className="Game-stats">
             <p>Game Stats:</p>
             <p>{this.state.stats.away.name} - {this.state.stats.home.name}</p>
@@ -108,7 +104,6 @@ class GameStatComponent extends React.Component<IGameStatsProps, IGameStatsState
         fetch(`${API_BASE_URL}/game/${this.props.match.params.id }/boxscore`)
             .then(response => response.json())
             .then((gamesData: any) => {
-                console.log('gamesData', gamesData);
                 const away = GameStatTeam.Parse(gamesData.teams.away);
                 const home = GameStatTeam.Parse(gamesData.teams.home);
                 const newState = {stats: new GameStat(home, away)};
