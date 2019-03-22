@@ -9,3 +9,5 @@ http://nhl-stats-browser.s3-website-us-east-1.amazonaws.com/
 `yarn start`
 
 Happy hacking!
+
+## MIT License
