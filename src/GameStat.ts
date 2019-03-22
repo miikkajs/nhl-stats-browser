@@ -4,14 +4,11 @@ class PlayerStats {
     }
 
     static Parse(json: any) {
-        if (json.stats.hasOwnProperty('skaterStats')) {
-            return new PlayerStats(json.stats.skaterStats.timeOnIce,
+        return json.stats.hasOwnProperty('skaterStats') ?
+            new PlayerStats(json.stats.skaterStats.timeOnIce,
                 json.stats.skaterStats.assists,
                 json.stats.skaterStats.goals,
-                json.stats.skaterStats.plusMinus);
-        } else {
-            return new PlayerStats();
-        }
+                json.stats.skaterStats.plusMinus) : new PlayerStats();
     }
 
 }

@@ -6,6 +6,8 @@ import ReactTable from 'react-table';
 import "react-table/react-table.css";
 import moment from 'moment';
 
+const API_BASE_URL = 'http://localhost:8000';
+
 const columns = [
     {
         Header: "Name",
@@ -20,7 +22,7 @@ const columns = [
         Header: "Time On Ice",
         id: 'timeOnIce',
         accessor: (d: any) => d.playerStats.timeOnIce,
-        sortMethod: (a: string, b :string) => {
+        sortMethod: (a: string, b: string) => {
             return moment(a, 'mm:ss').valueOf() - moment(b, 'mm:ss').valueOf()
         }
     },
@@ -41,12 +43,12 @@ const columns = [
     }
 ];
 
-const defaultFilterMethod = (filter : any, row : any) =>
-String(row[filter.id].toLowerCase()).indexOf(filter.value.toLowerCase()) !== -1;
+const defaultFilterMethod = (filter: any, row: any) =>
+    String(row[filter.id].toLowerCase()).indexOf(filter.value.toLowerCase()) !== -1;
 
 const defaultSorted = [{
-    id   : 'goals',
-    desc : true,
+    id: 'goals',
+    desc: true,
 }];
 
 interface IGameStatsRouterProps {
@@ -66,8 +68,21 @@ class GameStatComponent extends React.Component<IGameStatsProps, IGameStatsState
         super(props);
         const away = GameStatTeam.Parse(score.teams.away);
         const home = GameStatTeam.Parse(score.teams.home);
-        this.state = {stats: new GameStat(home, away)}
+        this.state = {stats: new GameStat(home, away)};
+        console.log('props', props);
 
+    }
+
+    componentDidMount() {
+        console.log('this.componentDidMount');
+        this.fetchData()
+    }
+
+    componentDidUpdate(prevProps : IGameStatsProps) {
+        console.log('this.componentDidUpdate');
+        if(this.props.match.params.id !== prevProps.match.params.id){
+            this.fetchData();
+        }
     }
 
     render() {
@@ -87,6 +102,20 @@ class GameStatComponent extends React.Component<IGameStatsProps, IGameStatsState
                         defaultFilterMethod={defaultFilterMethod}
                         defaultSorted={defaultSorted}/>
         </div>
+    }
+
+    fetchData() {
+
+        fetch(`${API_BASE_URL}/game/${this.props.match.params.id }/boxscore`)
+            .then(response => response.json())
+            .then((gamesData: any) => {
+                console.log('gamesData', gamesData);
+                const away = GameStatTeam.Parse(gamesData.teams.away);
+                const home = GameStatTeam.Parse(gamesData.teams.home);
+                const newState = {stats: new GameStat(home, away)};
+                this.setState(newState);
+            })
+            .catch(e => console.log('e', e));
     }
 }
 
