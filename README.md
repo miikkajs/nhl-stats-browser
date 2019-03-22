@@ -13,4 +13,4 @@ Change BASE_URL in `utils.ts` to `http://localhost:8000`
 
 `yarn install`
 
-`yarn run`
+`yarn start`
