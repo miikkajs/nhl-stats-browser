@@ -51,6 +51,7 @@ class App extends React.Component<IMainProps, IMainState> {
                 <div className="App">
                     <header className="App-header">
                         <img src={NHLLogo} className="App-logo" alt="logo"/>
+                        <h1>NHL-STATS.org</h1>
                         <GitHubForkRibbon href="https://github.com/miikkajs/nhl-stats-browser"  target="_blank" position="right">
                             Fork me on GitHub
                         </GitHubForkRibbon>

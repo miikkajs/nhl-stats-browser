@@ -13,19 +13,6 @@ const columns = [
         accessor: "name",
     },
     {
-        Header: "Nationality",
-        accessor: "nationality",
-        filterable: true
-    },
-    {
-        Header: "Time On Ice",
-        id: 'timeOnIce',
-        accessor: (d: any) => d.playerStats.timeOnIce,
-        sortMethod: (a: string, b: string) => {
-            return moment(a, 'mm:ss').valueOf() - moment(b, 'mm:ss').valueOf()
-        }
-    },
-    {
         Header: "Goals",
         id: 'goals',
         accessor: (d: any) => d.playerStats.goals,
@@ -39,6 +26,19 @@ const columns = [
         Header: "+/-",
         id: 'plusMinus',
         accessor: (d: any) => d.playerStats.plusMinus,
+    },
+    {
+        Header: "Time On Ice",
+        id: 'timeOnIce',
+        accessor: (d: any) => d.playerStats.timeOnIce,
+        sortMethod: (a: string, b: string) => {
+            return moment(a, 'mm:ss').valueOf() - moment(b, 'mm:ss').valueOf()
+        }
+    },
+    {
+        Header: "Nationality",
+        accessor: "nationality",
+        filterable: true
     }
 ];
 
@@ -75,8 +75,8 @@ class GameStatComponent extends React.Component<IGameStatsProps, IGameStatsState
         this.fetchData()
     }
 
-    componentDidUpdate(prevProps : IGameStatsProps) {
-        if(this.props.match.params.id !== prevProps.match.params.id){
+    componentDidUpdate(prevProps: IGameStatsProps) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
             this.fetchData();
         }
     }
